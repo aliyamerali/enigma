@@ -3,10 +3,18 @@
     "coverage": {
       "/Users/aliyamerali/Turing/1Mod/projects/enigma/lib/enigma.rb": {
         "lines": [
-
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null
         ]
       }
     },
-    "timestamp": 1619133437
+    "timestamp": 1619134268
   }
 }

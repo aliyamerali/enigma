@@ -18,9 +18,12 @@ RSpec.describe Enigma do
       expect(enigma.get_offset(date)).to eq("7241")
     end
 
-    # it 'takes in key and date strings to return shift hash' do
-    #   key = 90357
-    #   offset =
-    # end
+    it '#calculate_shift akes in key and date strings to return shift hash' do
+      key = 90357
+      date = "220421"
+      expected = {A: 97, B: 5, C: 39, D: 58}
+
+      expect(enigma.calculate_shift).to eq(expected)
+    end
   end
 end

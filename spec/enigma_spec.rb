@@ -10,4 +10,17 @@ RSpec.describe Enigma do
     end
   end
 
+  describe '#calculate_shift and helper #get_offset' do
+    enigma = Enigma.new
+
+    it '#get_offset takes in a date string and returns an offset' do
+      date = "220421"
+      expect(enigma.get_offset(date)).to eq(7241)
+    end
+
+    # it 'takes in key and date strings to return shift hash' do
+    #   key = 90357
+    #   offset =
+    # end
+  end
 end

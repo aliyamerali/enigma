@@ -15,7 +15,7 @@ class Enigma
         shifts[(65 + index).chr.to_sym] = key_value.to_i + offset[index].to_i
       end
     end
-    shift
+    shifts
   end
 
   def fwd_shift(character, shift_value)
@@ -27,7 +27,14 @@ class Enigma
 
   def encrypt(message, key, date)
     shifts = calculate_shifts(key, date)
-    key.each_char do |key_element|
-      shift.each do |
+    encrypted_message = []
+    message.each_char.with_index do |key_element, index|
+      shift = shifts[(65 + index%4).chr.to_sym]
+      encrypted_message << fwd_shift(key_element, shift)
+    end
+    {encryption: encrypted_message.join,
+    key: key,
+    date: date
+    }
   end
 end

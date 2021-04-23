@@ -19,11 +19,11 @@ RSpec.describe Enigma do
     end
 
     it '#calculate_shift akes in key and date strings to return shift hash' do
-      key = 90357
+      key = "90357"
       date = "220421"
       expected = {A: 97, B: 5, C: 39, D: 58}
 
-      expect(enigma.calculate_shift).to eq(expected)
+      expect(enigma.calculate_shift(key, date)).to eq(expected)
     end
   end
 end

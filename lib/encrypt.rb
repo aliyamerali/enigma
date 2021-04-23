@@ -11,7 +11,7 @@ enigma = Enigma.new
 encrypted_message = enigma.encrypt(message)
 
 end_file = File.open(end_file_name, "w")
-end_file.write(encrypted_message)
+end_file.write(encrypted_message[:encryption])
 end_file.close
 
 puts "Created '#{end_file_name}' with the key #{encrypted_message[:key]} and date #{encrypted_message[:date]}"

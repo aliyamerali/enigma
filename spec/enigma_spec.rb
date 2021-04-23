@@ -55,6 +55,24 @@ RSpec.describe Enigma do
     end
   end
 
+  describe '#bkwd_shift method' do
+    enigma = Enigma.new
+
+    it 'shifts a string value by a given amount backwards through a encoder array' do
+      shift_value = 97
+
+      expect(enigma.bkwd_shift("q", shift_value)).to eq("a")
+      expect(enigma.bkwd_shift("G", shift_value)).to eq("r")
+    end
+
+    it 'takes any integer shift_value' do
+      shift_value = 5
+
+      expect(enigma.bkwd_shift("Q", shift_value)).to eq("l")
+      expect(enigma.bkwd_shift("e", shift_value)).to eq(" ")
+    end
+  end
+
   describe '#generate_key' do
     enigma = Enigma.new
 
@@ -88,7 +106,7 @@ RSpec.describe Enigma do
       expect(enigma.encrypt(message, key)).to eq(expected)
     end
 
-    it 'uses random key if no key passed in' do
+    it 'uses random key if no key passed in AND default date of today' do
       allow(enigma).to receive(:generate_key) do
         "90357"
       end

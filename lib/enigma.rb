@@ -36,6 +36,13 @@ class Enigma
     encoder.rotate(total_shift)[0]
   end
 
+  def bkwd_shift(character, shift_value)
+    encoder = ("a".."z").to_a << " "
+    starting_index = encoder.index(character.downcase)
+    total_shift = starting_index - shift_value
+    encoder.rotate(total_shift)[0]
+  end
+
   def generate_key
     5.times.map{rand(10)}.join
   end

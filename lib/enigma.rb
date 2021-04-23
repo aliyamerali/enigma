@@ -1,9 +1,21 @@
+require 'Date'
+
 class Enigma
 
-
   def get_offset(date)
+    date = date_check(date)
     squared = date.to_i**2
     squared.to_s[-4..-1]
+  end
+
+  def date_check(date)
+    if date.class == String
+      date
+    elsif date.class == Date
+      date.strftime("%d%m%y")
+    else
+      "Date not in accepted format"
+    end
   end
 
   def calculate_shifts(key, date)
@@ -25,16 +37,13 @@ class Enigma
     encoder.rotate(total_shift)[0]
   end
 
-  def encrypt(message, key, date)
+  def encrypt(message, key, date=Date.today)
     shifts = calculate_shifts(key, date)
     encrypted_message = []
     message.each_char.with_index do |key_element, index|
       shift = shifts[(65 + index%4).chr.to_sym]
       encrypted_message << fwd_shift(key_element, shift)
     end
-    {encryption: encrypted_message.join,
-    key: key,
-    date: date
-    }
+    {encryption: encrypted_message.join, key: key, date: date}
   end
 end

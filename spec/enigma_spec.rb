@@ -11,7 +11,7 @@ RSpec.describe Enigma do
     end
   end
 
-  describe '#calculate_shifts and helper #get_offset and #date_check' do
+  describe '#calculate_shifts and helper #get_offset, #date_check' do
     enigma = Enigma.new
 
     it '#get_offset takes in a date string and returns an offset' do
@@ -77,6 +77,15 @@ RSpec.describe Enigma do
       expected = {encryption: "keder ohulw", key: key, date: "040895"}
 
       expect(enigma.encrypt(message, key)).to eq(expected)
+    end
+  end
+
+  describe '#generate_key' do
+    enigma = Enigma.new
+
+    it 'generates a random 5-digit key as a string' do
+      expect(enigma.generate_key.length).to eq(5)
+      expect(enigma.generate_key.class).to eq(String)
     end
   end
 

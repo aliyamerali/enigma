@@ -3,7 +3,7 @@ require 'Date'
 class Enigma
 
   def get_offset(date)
-    date = date_check(date)
+    # date = date_check(date)
     squared = date.to_i**2
     squared.to_s[-4..-1]
   end
@@ -38,6 +38,7 @@ class Enigma
   end
 
   def encrypt(message, key, date=Date.today)
+    date = date_check(date)  #WOULD like this to live in get_offset, but need to ID how to return date in right format for encrypt
     shifts = calculate_shifts(key, date)
     encrypted_message = []
     message.each_char.with_index do |key_element, index|

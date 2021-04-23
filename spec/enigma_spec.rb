@@ -120,5 +120,30 @@ RSpec.describe Enigma do
     end
   end
 
+  describe '#decrypt' do
+    enigma = Enigma.new
+
+    it 'returns the decoded version of the string passed in' do
+      key = "90357"
+      date = "220421"
+      message = "qqubqeyigfxm"
+      expected = {decryption: "Aliya Merali", key: key, date: date}
+
+      expect(enigma.decrypt(message, key, date)).to eq(expected)
+    end
+
+    it 'uses default date of today if no date passed in' do
+      allow(Date).to receive(:today) do
+        Date.new(1995,8,4)
+      end
+
+      key = "02715"
+      message = "keder ohulw"
+      expected = {decryption: "Hello World", key: key, date: "040895"}
+
+      expect(enigma.decrypt(message, key)).to eq(expected)
+    end
+  end
+
 
 end

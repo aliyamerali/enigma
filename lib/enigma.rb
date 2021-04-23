@@ -41,7 +41,7 @@ class Enigma
     5.times.map{rand(10)}.join
   end
 
-  def encrypt(message, key, date=Date.today)
+  def encrypt(message, key=generate_key, date=Date.today)
     date = date_check(date)  #WOULD like this to live in get_offset, but need to ID how to return date in right format for encrypt
     shifts = calculate_shifts(key, date)
     encrypted_message = []

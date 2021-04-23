@@ -92,11 +92,13 @@ RSpec.describe Enigma do
       allow(enigma).to receive(:generate_key) do
         "90357"
       end
-      date = "220421"
+      allow(Date).to receive(:today) do
+        Date.new(2021,4,22)
+      end
       message = "Aliya Merali"
-      expected = {encryption: "qqubqeyigfxm", key: key, date: date}
+      expected = {encryption: "qqubqeyigfxm", key: "90357", date: "220421"}
 
-      expect(enigma.encrypt(message, date)).to eq(expected)
+      expect(enigma.encrypt(message)).to eq(expected)
     end
   end
 

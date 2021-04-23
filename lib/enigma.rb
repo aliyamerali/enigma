@@ -68,4 +68,9 @@ class Enigma
     end
     {decryption: decrypted_message.join, key: key, date: date}
   end
+
+  def crack(cyphertext, date=Date.today)
+
+  end
+
 end

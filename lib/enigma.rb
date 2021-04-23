@@ -2,6 +2,10 @@ require 'Date'
 
 class Enigma
 
+  def initialize
+    @encoder = ("a".."z").to_a << " "
+  end
+
   def get_offset(date)
     squared = date.to_i**2
     squared.to_s[-4..-1]
@@ -30,17 +34,15 @@ class Enigma
   end
 
   def fwd_shift(character, shift_value)
-    encoder = ("a".."z").to_a << " "
-    starting_index = encoder.index(character.downcase)
+    starting_index = @encoder.index(character.downcase)
     total_shift = starting_index + shift_value
-    encoder.rotate(total_shift)[0]
+    @encoder.rotate(total_shift)[0]
   end
 
   def bkwd_shift(character, shift_value)
-    encoder = ("a".."z").to_a << " "
-    starting_index = encoder.index(character.downcase)
+    starting_index = @encoder.index(character.downcase)
     total_shift = starting_index - shift_value
-    encoder.rotate(total_shift)[0]
+    @encoder.rotate(total_shift)[0]
   end
 
   def generate_key
@@ -71,6 +73,24 @@ class Enigma
 
   def crack(cyphertext, date=Date.today)
 
+  end
+
+  def bkwd_calculate_shifts(cyphertext, date)
+    cyphertext_end = cyphertext[-4..-1]
+    known_end = " end".split("")
+    unordered_shifts = []
+    cyphertext_end.each_char.with_index do |character, index|
+      shift = @encoder.index(character) - @encoder.index(known_end[index])
+      if shift > 0
+        unordered_shifts << shift
+      else
+        shift += @encoder.length
+        unordered_shifts << shift
+      end
+    end
+    # require 'pry'; binding.pry
+    # unordered_shifts = unordered_shifts.sort!
+    unordered_shifts
   end
 
 end

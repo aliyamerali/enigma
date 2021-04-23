@@ -161,13 +161,14 @@ RSpec.describe Enigma do
       expect(enigma.crack(cyphertext, date)).to eq(expected)
     end
 
-    describe '#bkwd_calculate_shift' do
+    describe '#bkwd_calculate_shifts' do
       enigma = Enigma.new
       cyphertext = "vjqtbeaweqihssi"
       date = "291018"
+      expected = [14, 86%27, 32%27, 8].sort
 
-      it 'returns the key based on cyphertext and a date' do
-        expect(enigma.bkwd_calculate_shift).to eq("08304")
+      it 'returns the shifts based on cyphertext and a date' do
+        expect(enigma.bkwd_calculate_shifts(cyphertext, date)).to eq(expected)
       end
     end
   end

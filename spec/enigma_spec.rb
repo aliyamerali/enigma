@@ -28,7 +28,7 @@ RSpec.describe Enigma do
       end
     end
 
-    it '#calculate_shifts akes in key and date strings to return shift hash' do
+    it '#calculate_shifts takes in key and date strings to return shift hash' do
       key = "90357"
       date = "220421"
       expected = {A: 97, B: 5, C: 39, D: 58}
@@ -55,6 +55,15 @@ RSpec.describe Enigma do
     end
   end
 
+  describe '#generate_key' do
+    enigma = Enigma.new
+
+    it 'generates a random 5-digit key as a string' do
+      expect(enigma.generate_key.length).to eq(5)
+      expect(enigma.generate_key.class).to eq(String)
+    end
+  end
+
   describe '#encrypt' do
     enigma = Enigma.new
 
@@ -78,15 +87,18 @@ RSpec.describe Enigma do
 
       expect(enigma.encrypt(message, key)).to eq(expected)
     end
-  end
 
-  describe '#generate_key' do
-    enigma = Enigma.new
+    it 'uses random key if no key passed in' do
+      allow(enigma).to receive(:generate_key) do
+        "90357"
+      end
+      date = "220421"
+      message = "Aliya Merali"
+      expected = {encryption: "qqubqeyigfxm", key: key, date: date}
 
-    it 'generates a random 5-digit key as a string' do
-      expect(enigma.generate_key.length).to eq(5)
-      expect(enigma.generate_key.class).to eq(String)
+      expect(enigma.encrypt(message, date)).to eq(expected)
     end
   end
+
 
 end

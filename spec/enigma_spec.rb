@@ -44,4 +44,21 @@ RSpec.describe Enigma do
       expect(enigma.fwd_shift(" ", shift_value)).to eq("e")
     end
   end
+
+  describe '#encrypt' do
+    enigma = Enigma.new
+    key = "90357"
+    date = "220421"
+    message = "Aliya Merali"
+
+    expected = {
+                encryption: "qqubqeyigfxm",
+                key: key,
+                date: date
+               }
+
+    it 'returns the encoded string passed in' do
+      expect(encrypt(message, key, date)).to eq(expected)
+    end
+  end
 end

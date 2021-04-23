@@ -58,7 +58,7 @@ RSpec.describe Enigma do
                }
 
     it 'returns the encoded string passed in' do
-      expect(encrypt(message, key, date)).to eq(expected)
+      expect(enigma.encrypt(message, key, date)).to eq(expected)
     end
   end
 end

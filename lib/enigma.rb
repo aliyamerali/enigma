@@ -3,7 +3,6 @@ require 'Date'
 class Enigma
 
   def get_offset(date)
-    # date = date_check(date)
     squared = date.to_i**2
     squared.to_s[-4..-1]
   end
@@ -41,7 +40,7 @@ class Enigma
     5.times.map{rand(10)}.join
   end
 
-  def encrypt(message, key=generate_key, date=Date.today)
+  def encrypt(message, key=generate_key, date=Date.today) #HOW can we accomodate default value for 3nd not third input?
     date = date_check(date)  #WOULD like this to live in get_offset, but need to ID how to return date in right format for encrypt
     shifts = calculate_shifts(key, date)
     encrypted_message = []

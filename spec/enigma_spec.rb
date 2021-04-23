@@ -26,4 +26,13 @@ RSpec.describe Enigma do
       expect(enigma.calculate_shift(key, date)).to eq(expected)
     end
   end
+
+  describe '#fwd_shift method' do
+
+    it 'shifts a string value by a given amount through a encoder array' do
+      shift_value = 97
+
+      expect(fwd_shift("a", shift)).to eq("q")
+    end
+  end
 end

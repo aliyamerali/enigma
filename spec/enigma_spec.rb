@@ -127,7 +127,7 @@ RSpec.describe Enigma do
       key = "90357"
       date = "220421"
       message = "qqubqeyigfxm"
-      expected = {decryption: "Aliya Merali", key: key, date: date}
+      expected = {decryption: "aliya merali", key: key, date: date}
 
       expect(enigma.decrypt(message, key, date)).to eq(expected)
     end
@@ -139,7 +139,7 @@ RSpec.describe Enigma do
 
       key = "02715"
       message = "keder ohulw"
-      expected = {decryption: "Hello World", key: key, date: "040895"}
+      expected = {decryption: "hello world", key: key, date: "040895"}
 
       expect(enigma.decrypt(message, key)).to eq(expected)
     end

@@ -57,4 +57,15 @@ class Enigma
     end
     {encryption: encrypted_message.join, key: key, date: date}
   end
+
+  def decrypt(message, key, date=Date.today)
+    date = date_check(date)
+    shifts = calculate_shifts(key, date)
+    decrypted_message = []
+    message.each_char.with_index do |key_element, index|
+      shift = shifts[(65 + index%4).chr.to_sym]
+      decrypted_message << bkwd_shift(key_element, shift)
+    end
+    {decryption: decrypted_message.join, key: key, date: date}
+  end
 end

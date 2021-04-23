@@ -3,7 +3,6 @@ require 'Date'
 class Enigma
 
   def get_offset(date)
-    # date = date_check(date)
     squared = date.to_i**2
     squared.to_s[-4..-1]
   end
@@ -37,11 +36,18 @@ class Enigma
     encoder.rotate(total_shift)[0]
   end
 
+  def bkwd_shift(character, shift_value)
+    encoder = ("a".."z").to_a << " "
+    starting_index = encoder.index(character.downcase)
+    total_shift = starting_index - shift_value
+    encoder.rotate(total_shift)[0]
+  end
+
   def generate_key
     5.times.map{rand(10)}.join
   end
 
-  def encrypt(message, key=generate_key, date=Date.today)
+  def encrypt(message, key=generate_key, date=Date.today) #HOW can we accomodate default value for 3nd not third input?
     date = date_check(date)  #WOULD like this to live in get_offset, but need to ID how to return date in right format for encrypt
     shifts = calculate_shifts(key, date)
     encrypted_message = []
@@ -50,5 +56,16 @@ class Enigma
       encrypted_message << fwd_shift(key_element, shift)
     end
     {encryption: encrypted_message.join, key: key, date: date}
+  end
+
+  def decrypt(message, key, date=Date.today)
+    date = date_check(date)
+    shifts = calculate_shifts(key, date)
+    decrypted_message = []
+    message.each_char.with_index do |key_element, index|
+      shift = shifts[(65 + index%4).chr.to_sym]
+      decrypted_message << bkwd_shift(key_element, shift)
+    end
+    {decryption: decrypted_message.join, key: key, date: date}
   end
 end

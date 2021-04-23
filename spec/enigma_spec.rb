@@ -28,11 +28,20 @@ RSpec.describe Enigma do
   end
 
   describe '#fwd_shift method' do
+    enigma = Enigma.new
 
     it 'shifts a string value by a given amount through a encoder array' do
       shift_value = 97
 
-      expect(fwd_shift("a", shift)).to eq("q")
+      expect(enigma.fwd_shift("a", shift_value)).to eq("q")
+      expect(enigma.fwd_shift("R", shift_value)).to eq("g")
+    end
+
+    it 'takes any integer shift_value' do
+      shift_value = 5
+
+      expect(enigma.fwd_shift("l", shift_value)).to eq("q")
+      expect(enigma.fwd_shift(" ", shift_value)).to eq("e")
     end
   end
 end

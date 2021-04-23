@@ -18,5 +18,12 @@ class Enigma
     shift
   end
 
+  def fwd_shift(character, shift_value)
+    encoder = ("a".."z").to_a << " "
+    starting_index = encoder.index(character.downcase)
+    shift = starting_index + shift_value
+    encoder.rotate(shift)[0]
+  end
+
 
 end

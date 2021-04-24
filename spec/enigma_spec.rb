@@ -16,11 +16,11 @@ RSpec.describe Enigma do
     expect(enigma.date_check(Date.new(1995,8,4))).to eq("040895")
   end
 
-  it '#generate_key generates a random 5-digit key as a string' do
+  it '#generate_random_key generates a random 5-digit key as a string' do
     enigma = Enigma.new
 
-    expect(enigma.generate_key.length).to eq(5)
-    expect(enigma.generate_key.class).to eq(String)
+    expect(enigma.generate_random_key.length).to eq(5)
+    expect(enigma.generate_random_key.class).to eq(String)
   end
 
   describe '#encrypt' do
@@ -48,7 +48,7 @@ RSpec.describe Enigma do
     end
 
     it 'uses random key if no key passed in AND default date of today' do
-      allow(enigma).to receive(:generate_key) do
+      allow(enigma).to receive(:generate_random_key) do
         "90357"
       end
       allow(Date).to receive(:today) do

@@ -16,11 +16,11 @@ class Enigma
     end
   end
 
-  def generate_key
+  def generate_random_key
     5.times.map{rand(10)}.join
   end
 
-  def encrypt(message, key=generate_key, date=Date.today)
+  def encrypt(message, key=generate_random_key, date=Date.today)
     date = date_check(date)
     shifts = calculate_shifts(key, date)
     encrypted_message = []

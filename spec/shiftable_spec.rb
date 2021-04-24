@@ -64,5 +64,4 @@ RSpec.describe Shiftable do
     end
   end
 
-
 end

@@ -18,5 +18,41 @@ RSpec.describe Shiftable do
     expect(enigma.calculate_shifts(key, date)).to eq(expected)
   end
 
+  describe '#fwd_shift method' do
+    enigma = Enigma.new
+
+    it 'shifts a string value by a given amount through a encoder array' do
+      shift_value = 97
+
+      expect(enigma.fwd_shift("a", shift_value)).to eq("q")
+      expect(enigma.fwd_shift("R", shift_value)).to eq("g")
+    end
+
+    it 'takes any integer shift_value' do
+      shift_value = 5
+
+      expect(enigma.fwd_shift("l", shift_value)).to eq("q")
+      expect(enigma.fwd_shift(" ", shift_value)).to eq("e")
+    end
+  end
+
+  describe '#bkwd_shift method' do
+    enigma = Enigma.new
+
+    it 'shifts a string value by a given amount backwards through a encoder array' do
+      shift_value = 97
+
+      expect(enigma.bkwd_shift("q", shift_value)).to eq("a")
+      expect(enigma.bkwd_shift("G", shift_value)).to eq("r")
+    end
+
+    it 'takes any integer shift_value' do
+      shift_value = 5
+
+      expect(enigma.bkwd_shift("Q", shift_value)).to eq("l")
+      expect(enigma.bkwd_shift("e", shift_value)).to eq(" ")
+    end
+  end
+
 
 end

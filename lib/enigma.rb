@@ -18,17 +18,17 @@ class Enigma
     end
   end
 
-  def fwd_shift(character, shift_value)
-    starting_index = @encoder.index(character.downcase)
-    total_shift = starting_index + shift_value
-    @encoder.rotate(total_shift)[0]
-  end
-
-  def bkwd_shift(character, shift_value)
-    starting_index = @encoder.index(character.downcase)
-    total_shift = starting_index - shift_value
-    @encoder.rotate(total_shift)[0]
-  end
+  # def fwd_shift(character, shift_value)
+  #   starting_index = @encoder.index(character.downcase)
+  #   total_shift = starting_index + shift_value
+  #   @encoder.rotate(total_shift)[0]
+  # end
+  #
+  # def bkwd_shift(character, shift_value)
+  #   starting_index = @encoder.index(character.downcase)
+  #   total_shift = starting_index - shift_value
+  #   @encoder.rotate(total_shift)[0]
+  # end
 
   def generate_key
     5.times.map{rand(10)}.join

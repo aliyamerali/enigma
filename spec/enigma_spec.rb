@@ -145,5 +145,32 @@ RSpec.describe Enigma do
     end
   end
 
+  describe '#crack' do
+    enigma = Enigma.new
+    #takes in encoded text and optional date (else date = today)
+    #returns decoded text, date, and key used to decode
+    cyphertext = "vjqtbeaweqihssi"
+    date = "291018"
+    expected = {
+      decryption: "hello world end",
+      date: "291018",
+      key: "08304"
+    }
+
+    it '#returns decoded text, date, and key when given text and date' do
+      expect(enigma.crack(cyphertext, date)).to eq(expected)
+    end
+  end
+
+  describe '#bkwd_calculate_shifts' do
+    enigma = Enigma.new
+    cyphertext = "vjqtbeaweqihssi"
+    expected = {A: 14, B: 86%27, C: 32%27, D:8}
+
+    it 'returns the shifts based on cyphertext and a date' do
+      expect(enigma.bkwd_calculate_shifts(cyphertext)).to eq(expected)
+    end
+  end
+
 
 end

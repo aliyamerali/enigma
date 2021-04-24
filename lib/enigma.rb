@@ -2,6 +2,10 @@ require 'Date'
 
 class Enigma
 
+  def initialize
+    @encoder = ("a".."z").to_a << " "
+  end
+
   def get_offset(date)
     squared = date.to_i**2
     squared.to_s[-4..-1]
@@ -30,17 +34,15 @@ class Enigma
   end
 
   def fwd_shift(character, shift_value)
-    encoder = ("a".."z").to_a << " "
-    starting_index = encoder.index(character.downcase)
+    starting_index = @encoder.index(character.downcase)
     total_shift = starting_index + shift_value
-    encoder.rotate(total_shift)[0]
+    @encoder.rotate(total_shift)[0]
   end
 
   def bkwd_shift(character, shift_value)
-    encoder = ("a".."z").to_a << " "
-    starting_index = encoder.index(character.downcase)
+    starting_index = @encoder.index(character.downcase)
     total_shift = starting_index - shift_value
-    encoder.rotate(total_shift)[0]
+    @encoder.rotate(total_shift)[0]
   end
 
   def generate_key
@@ -68,4 +70,36 @@ class Enigma
     end
     {decryption: decrypted_message.join, key: key, date: date}
   end
+
+  def crack(cyphertext, date=Date.today)
+    date = date_check(date)
+    shifts = bkwd_calculate_shifts(cyphertext)
+    #SHIFTS TO KEY:
+      # subtract offset
+      # How to check first shift? 
+      # check tht first char of second shift matches second char of first
+      # if not, add 27 until true
+      # repeat for 3rd and 4th shift
+    # key = #HELPER TO CALCULATE KEY
+    # decrypt(cyphertext, key, date)
+  end
+
+  def bkwd_calculate_shifts(cyphertext)
+    cyphertext_end = cyphertext[-4..-1].split("")
+    known_end_chars = " end".split("")
+    known_end_chars.rotate!(4 - cyphertext.length % 4)
+    cyphertext_end.rotate!(4 - cyphertext.length % 4)
+    shifts = {}
+    cyphertext_end.each_with_index do |character, index|
+      shift = @encoder.index(character) - @encoder.index(known_end_chars[index])
+      if shift > 0
+        shifts[(65 + index).chr.to_sym] = shift
+      else
+        shift += @encoder.length
+        shifts[(65 + index).chr.to_sym] = shift
+      end
+    end
+    shifts
+  end
+
 end

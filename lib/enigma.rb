@@ -1,15 +1,17 @@
 require 'Date'
+require './shiftable'
 
 class Enigma
+  include Shiftable
 
   def initialize
     @encoder = ("a".."z").to_a << " "
   end
 
-  def get_offset(date)
-    squared = date.to_i**2
-    squared.to_s[-4..-1]
-  end
+  # def get_offset(date)
+  #   squared = date.to_i**2
+  #   squared.to_s[-4..-1]
+  # end
 
   def date_check(date)
     if date.class == String

@@ -3,83 +3,24 @@ require 'date'
 
 RSpec.describe Enigma do
 
-  describe '#initialize' do
+  it '#initialize - it exists' do
     enigma = Enigma.new
 
-    it 'exists' do
-      expect(enigma).to be_instance_of(Enigma)
-    end
+    expect(enigma).to be_instance_of(Enigma)
   end
 
-  describe '#calculate_shifts and helper #get_offset, #date_check' do
+  it '#date_check checks that a date is in string format, modifies it if not' do
     enigma = Enigma.new
 
-    # it '#get_offset takes in a date string and returns an offset' do
-    #   date = "220421"
-    #   expect(enigma.get_offset(date)).to eq("7241")
-    # end
-
-    describe '#date_check' do
-      enigma = Enigma.new
-
-      it 'checks that a date is in the required string format, modifies it if not' do
-        expect(enigma.date_check("230421")).to eq("230421")
-        expect(enigma.date_check(Date.new(1995,8,4))).to eq("040895")
-      end
-    end
-
-    # it '#calculate_shifts takes in key and date strings to return shift hash' do
-    #   key = "90357"
-    #   date = "220421"
-    #   expected = {A: 97, B: 5, C: 39, D: 58}
-    #
-    #   expect(enigma.calculate_shifts(key, date)).to eq(expected)
-    # end
+    expect(enigma.date_check("230421")).to eq("230421")
+    expect(enigma.date_check(Date.new(1995,8,4))).to eq("040895")
   end
 
-  # describe '#fwd_shift method' do
-  #   enigma = Enigma.new
-  #
-  #   it 'shifts a string value by a given amount through a encoder array' do
-  #     shift_value = 97
-  #
-  #     expect(enigma.fwd_shift("a", shift_value)).to eq("q")
-  #     expect(enigma.fwd_shift("R", shift_value)).to eq("g")
-  #   end
-  #
-  #   it 'takes any integer shift_value' do
-  #     shift_value = 5
-  #
-  #     expect(enigma.fwd_shift("l", shift_value)).to eq("q")
-  #     expect(enigma.fwd_shift(" ", shift_value)).to eq("e")
-  #   end
-  # end
-  #
-  # describe '#bkwd_shift method' do
-  #   enigma = Enigma.new
-  #
-  #   it 'shifts a string value by a given amount backwards through a encoder array' do
-  #     shift_value = 97
-  #
-  #     expect(enigma.bkwd_shift("q", shift_value)).to eq("a")
-  #     expect(enigma.bkwd_shift("G", shift_value)).to eq("r")
-  #   end
-  #
-  #   it 'takes any integer shift_value' do
-  #     shift_value = 5
-  #
-  #     expect(enigma.bkwd_shift("Q", shift_value)).to eq("l")
-  #     expect(enigma.bkwd_shift("e", shift_value)).to eq(" ")
-  #   end
-  # end
-
-  describe '#generate_key' do
+  it '#generate_key generates a random 5-digit key as a string' do
     enigma = Enigma.new
 
-    it 'generates a random 5-digit key as a string' do
-      expect(enigma.generate_key.length).to eq(5)
-      expect(enigma.generate_key.class).to eq(String)
-    end
+    expect(enigma.generate_key.length).to eq(5)
+    expect(enigma.generate_key.class).to eq(String)
   end
 
   describe '#encrypt' do
@@ -157,20 +98,66 @@ RSpec.describe Enigma do
       key: "08304"
     }
 
-    it '#returns decoded text, date, and key when given text and date' do
+    it 'returns decoded text, date, and key when given text and date' do
       expect(enigma.crack(cyphertext, date)).to eq(expected)
     end
   end
 
-  # describe '#bkwd_calculate_shifts' do
-  #   enigma = Enigma.new
-  #   cyphertext = "vjqtbeaweqihssi"
-  #   expected = {A: 14, B: 86%27, C: 32%27, D:8}
-  #
-  #   it 'returns the shifts based on cyphertext and a date' do
-  #     expect(enigma.bkwd_calculate_shifts(cyphertext)).to eq(expected)
-  #   end
-  # end
+  describe 'Shiftable module methods' do
+    enigma = Enigma.new
+    
+    it '#get_offset takes in a date string and returns an offset' do
+      date = "220421"
+      expect(enigma.get_offset(date)).to eq("7241")
+    end
 
+    it '#calculate_shifts takes in key and date strings to return shift hash' do
+      key = "90357"
+      date = "220421"
+      expected = {A: 97, B: 5, C: 39, D: 58}
+
+      expect(enigma.calculate_shifts(key, date)).to eq(expected)
+    end
+
+    describe '#fwd_shift method' do
+      it 'shifts a string value by a given amount through a encoder array' do
+        shift_value = 97
+
+        expect(enigma.fwd_shift("a", shift_value)).to eq("q")
+        expect(enigma.fwd_shift("R", shift_value)).to eq("g")
+      end
+
+      it 'takes any integer shift_value' do
+        shift_value = 5
+
+        expect(enigma.fwd_shift("l", shift_value)).to eq("q")
+        expect(enigma.fwd_shift(" ", shift_value)).to eq("e")
+      end
+    end
+
+    describe '#bkwd_shift method' do
+      it 'shifts a string value by a given amount backwards through a encoder array' do
+        shift_value = 97
+
+        expect(enigma.bkwd_shift("q", shift_value)).to eq("a")
+        expect(enigma.bkwd_shift("G", shift_value)).to eq("r")
+      end
+
+      it 'takes any integer shift_value' do
+        shift_value = 5
+
+        expect(enigma.bkwd_shift("Q", shift_value)).to eq("l")
+        expect(enigma.bkwd_shift("e", shift_value)).to eq(" ")
+      end
+    end
+
+    it '#bkwd_calculate_shifts returns the shifts based on cyphertxt and date' do
+      enigma = Enigma.new
+      cyphertext = "vjqtbeaweqihssi"
+      expected = {A: 14, B: 86%27, C: 32%27, D:8}
+
+      expect(enigma.bkwd_calculate_shifts(cyphertext)).to eq(expected)
+    end
+  end
 
 end

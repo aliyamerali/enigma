@@ -13,8 +13,6 @@ class Enigma
       date
     elsif date.class == Date
       date.strftime("%d%m%y")
-    else
-      "Date not in accepted format"
     end
   end
 
@@ -22,13 +20,13 @@ class Enigma
     5.times.map{rand(10)}.join
   end
 
-  def encrypt(message, key=generate_key, date=Date.today) #HOW can we accomodate default value for 3nd not third input?
+  def encrypt(message, key=generate_key, date=Date.today)
     date = date_check(date)
     shifts = calculate_shifts(key, date)
     encrypted_message = []
-    message.each_char.with_index do |key_element, index|
+    message.each_char.with_index do |message_char, index|
       shift = shifts[(65 + index%4).chr.to_sym]
-      encrypted_message << fwd_shift(key_element, shift)
+      encrypted_message << fwd_shift(message_char, shift)
     end
     {encryption: encrypted_message.join, key: key, date: date}
   end
@@ -37,9 +35,9 @@ class Enigma
     date = date_check(date)
     shifts = calculate_shifts(key, date)
     decrypted_message = []
-    message.each_char.with_index do |key_element, index|
+    message.each_char.with_index do |message_char, index|
       shift = shifts[(65 + index%4).chr.to_sym]
-      decrypted_message << bkwd_shift(key_element, shift)
+      decrypted_message << bkwd_shift(message_char, shift)
     end
     {decryption: decrypted_message.join, key: key, date: date}
   end

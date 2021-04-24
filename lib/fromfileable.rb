@@ -9,5 +9,9 @@ module FromFileable
     message
   end
 
-
+  def self.write_ending_text(file, new_text)
+    end_file = File.open(file, "w")
+    end_file.write(new_text)
+    end_file.close
+  end
 end

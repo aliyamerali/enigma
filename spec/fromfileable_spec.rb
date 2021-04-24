@@ -12,12 +12,13 @@ describe FromFileable do
 
   it '#write_ending_text writes new text to a file' do
     file_name = 'testing.txt'
-    new_text = "This is new text being added to the file"
+    new_text = "test, Test, test."
     FromFileable.write_ending_text(file_name, new_text)
 
-    expect(File.open(file, "r").read.class).to eq(String)
-    expect(File.open(file, "r").read).to eq(new_text)
+    expect(File.open(file_name, "r").read.class).to eq(String)
+    expect(File.open(file_name, "r").read).to eq(new_text)
   end
+
   # it '#encrypt_from_file takes in a file and writes encrypted text to new file' do
   #   start_file_name = 'testing.txt'
   #   end_file_name = 'testing_end.txt'

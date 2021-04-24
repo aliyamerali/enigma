@@ -17,15 +17,23 @@ module Shiftable
   end
 
   def fwd_shift(character, shift_value)
-    starting_index = @encoder.index(character.downcase)
-    total_shift = starting_index + shift_value
-    @encoder.rotate(total_shift)[0]
+    if @encoder.include?(character.downcase)
+      starting_index = @encoder.index(character.downcase)
+      total_shift = starting_index + shift_value
+      @encoder.rotate(total_shift)[0]
+    else
+      character
+    end
   end
 
   def bkwd_shift(character, shift_value)
-    starting_index = @encoder.index(character.downcase)
-    total_shift = starting_index - shift_value
-    @encoder.rotate(total_shift)[0]
+    if @encoder.include?(character.downcase)
+      starting_index = @encoder.index(character.downcase)
+      total_shift = starting_index - shift_value
+      @encoder.rotate(total_shift)[0]
+    else
+      character
+    end
   end
 
   def bkwd_calculate_shifts(cyphertext)

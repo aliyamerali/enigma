@@ -165,7 +165,7 @@ RSpec.describe Enigma do
   describe '#bkwd_calculate_shifts' do
     enigma = Enigma.new
     cyphertext = "vjqtbeaweqihssi"
-    expected = [14, 86%27, 32%27, 8].sort
+    expected = {A: 14, B: 86%27, C: 32%27, D:8}
 
     it 'returns the shifts based on cyphertext and a date' do
       expect(enigma.bkwd_calculate_shifts(cyphertext)).to eq(expected)

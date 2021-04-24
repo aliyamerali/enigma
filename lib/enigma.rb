@@ -76,7 +76,7 @@ class Enigma
     shifts = bkwd_calculate_shifts(cyphertext)
     #SHIFTS TO KEY:
       # subtract offset
-      # How to check first shift? 
+      # How to check first shift?
       # check tht first char of second shift matches second char of first
       # if not, add 27 until true
       # repeat for 3rd and 4th shift

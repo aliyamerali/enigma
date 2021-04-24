@@ -1,0 +1,5 @@
+module Shiftable
+#TO CONTAIN ALL SHIFTING RELATED BEHAVIOR
+
+
+end

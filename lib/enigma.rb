@@ -23,7 +23,7 @@ class Enigma
   end
 
   def encrypt(message, key=generate_key, date=Date.today) #HOW can we accomodate default value for 3nd not third input?
-    date = date_check(date)  #WOULD like this to live in get_offset, but need to ID how to return date in right format for encrypt
+    date = date_check(date)  
     shifts = calculate_shifts(key, date)
     encrypted_message = []
     message.each_char.with_index do |key_element, index|

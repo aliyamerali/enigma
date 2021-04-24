@@ -1,4 +1,5 @@
 require 'pry'
+require './lib/enigma'
 
 module FromFileable
 
@@ -13,5 +14,14 @@ module FromFileable
     end_file = File.open(file, "w")
     end_file.write(new_text)
     end_file.close
+  end
+
+  def self.encrypt_from_file(start_file, end_file)
+    message = read_starting_text(start_file)
+    enigma = Enigma.new
+    encrypted_message = enigma.encrypt(message)
+    # binding.pry
+    write_ending_text(end_file, encrypted_message[:encryption])
+    encrypted_message
   end
 end

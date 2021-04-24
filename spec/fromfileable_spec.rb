@@ -19,7 +19,7 @@ describe FromFileable do
     expect(File.open(file_name, "r").read).to eq(new_text)
   end
 
-  it '#encrypt_from_file reads file, writes encryption to new file, returns encryption' do
+  xit '#encrypt_from_file reads file, writes encryption to new file, returns encryption' do
     start_file = 'testing.txt'
     end_file = 'testing_end.txt'
     message = "test Test test"
@@ -35,7 +35,7 @@ describe FromFileable do
     expect(File.open(end_file, "r").read).to eq(expected[:encryption])
   end
 
-  it '#decrypt_from_file reads file, writes decryption to new file, returns decryption' do
+  xit '#decrypt_from_file reads file, writes decryption to new file, returns decryption' do
     start_file = 'testing.txt'
     end_file = 'testing_end.txt'
     key = "82648"

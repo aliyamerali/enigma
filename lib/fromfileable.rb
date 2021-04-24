@@ -20,7 +20,6 @@ module FromFileable
     message = read_starting_text(start_file)
     enigma = Enigma.new
     encrypted_message = enigma.encrypt(message)
-    # binding.pry
     write_ending_text(end_file, encrypted_message[:encryption])
     encrypted_message
   end

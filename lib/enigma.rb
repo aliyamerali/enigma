@@ -8,11 +8,6 @@ class Enigma
     @encoder = ("a".."z").to_a << " "
   end
 
-  # def get_offset(date)
-  #   squared = date.to_i**2
-  #   squared.to_s[-4..-1]
-  # end
-
   def date_check(date)
     if date.class == String
       date
@@ -23,17 +18,17 @@ class Enigma
     end
   end
 
-  def calculate_shifts(key, date)
-    offset = get_offset(date)
-    shifts = {}
-    key.each_char.with_index do |key_element, index|
-      if index < key.length - 1
-        key_value = key_element + key[index+1]
-        shifts[(65 + index).chr.to_sym] = key_value.to_i + offset[index].to_i
-      end
-    end
-    shifts
-  end
+  # def calculate_shifts(key, date)
+  #   offset = get_offset(date)
+  #   shifts = {}
+  #   key.each_char.with_index do |key_element, index|
+  #     if index < key.length - 1
+  #       key_value = key_element + key[index+1]
+  #       shifts[(65 + index).chr.to_sym] = key_value.to_i + offset[index].to_i
+  #     end
+  #   end
+  #   shifts
+  # end
 
   def fwd_shift(character, shift_value)
     starting_index = @encoder.index(character.downcase)

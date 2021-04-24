@@ -14,10 +14,10 @@ RSpec.describe Enigma do
   describe '#calculate_shifts and helper #get_offset, #date_check' do
     enigma = Enigma.new
 
-    # it '#get_offset takes in a date string and returns an offset' do
-    #   date = "220421"
-    #   expect(enigma.get_offset(date)).to eq("7241")
-    # end
+    it '#get_offset takes in a date string and returns an offset' do
+      date = "220421"
+      expect(enigma.get_offset(date)).to eq("7241")
+    end
 
     describe '#date_check' do
       enigma = Enigma.new

@@ -5,4 +5,6 @@ module Shiftable
     squared.to_s[-4..-1]
   end
 
+
+
 end

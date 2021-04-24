@@ -72,23 +72,26 @@ class Enigma
   end
 
   def crack(cyphertext, date=Date.today)
-
+    date = date_check(date)
+    # shifts = #CAN get to order by checking length of cyphertext, %4, id what last 4 are.
   end
 
   def bkwd_calculate_shifts(cyphertext)
-    cyphertext_end = cyphertext[-4..-1]
-    known_end = " end".split("")
-    unordered_shifts = []
-    cyphertext_end.each_char.with_index do |character, index|
-      shift = @encoder.index(character) - @encoder.index(known_end[index])
+    cyphertext_end = cyphertext[-4..-1].split("")
+    known_end_chars = " end".split("")
+    known_end_chars.rotate!(4 - cyphertext.length % 4)
+    cyphertext_end.rotate!(4 - cyphertext.length % 4)
+    shifts = {}
+    cyphertext_end.each_with_index do |character, index|
+      shift = @encoder.index(character) - @encoder.index(known_end_chars[index])
       if shift > 0
-        unordered_shifts << shift
+        shifts[(65 + index).chr.to_sym] = shift
       else
         shift += @encoder.length
-        unordered_shifts << shift
+        shifts[(65 + index).chr.to_sym] = shift
       end
     end
-    unordered_shifts.sort
+    shifts
   end
 
 end

@@ -54,5 +54,15 @@ RSpec.describe Shiftable do
     end
   end
 
+  describe '#bkwd_calculate_shifts' do
+    enigma = Enigma.new
+    cyphertext = "vjqtbeaweqihssi"
+    expected = {A: 14, B: 86%27, C: 32%27, D:8}
+
+    it 'returns the shifts based on cyphertext and a date' do
+      expect(enigma.bkwd_calculate_shifts(cyphertext)).to eq(expected)
+    end
+  end
+
 
 end

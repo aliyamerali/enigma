@@ -18,18 +18,6 @@ class Enigma
     end
   end
 
-  # def fwd_shift(character, shift_value)
-  #   starting_index = @encoder.index(character.downcase)
-  #   total_shift = starting_index + shift_value
-  #   @encoder.rotate(total_shift)[0]
-  # end
-  #
-  # def bkwd_shift(character, shift_value)
-  #   starting_index = @encoder.index(character.downcase)
-  #   total_shift = starting_index - shift_value
-  #   @encoder.rotate(total_shift)[0]
-  # end
-
   def generate_key
     5.times.map{rand(10)}.join
   end
@@ -69,22 +57,22 @@ class Enigma
     # decrypt(cyphertext, key, date)
   end
 
-  def bkwd_calculate_shifts(cyphertext)
-    cyphertext_end = cyphertext[-4..-1].split("")
-    known_end_chars = " end".split("")
-    known_end_chars.rotate!(4 - cyphertext.length % 4)
-    cyphertext_end.rotate!(4 - cyphertext.length % 4)
-    shifts = {}
-    cyphertext_end.each_with_index do |character, index|
-      shift = @encoder.index(character) - @encoder.index(known_end_chars[index])
-      if shift > 0
-        shifts[(65 + index).chr.to_sym] = shift
-      else
-        shift += @encoder.length
-        shifts[(65 + index).chr.to_sym] = shift
-      end
-    end
-    shifts
-  end
+  # def bkwd_calculate_shifts(cyphertext)
+  #   cyphertext_end = cyphertext[-4..-1].split("")
+  #   known_end_chars = " end".split("")
+  #   known_end_chars.rotate!(4 - cyphertext.length % 4)
+  #   cyphertext_end.rotate!(4 - cyphertext.length % 4)
+  #   shifts = {}
+  #   cyphertext_end.each_with_index do |character, index|
+  #     shift = @encoder.index(character) - @encoder.index(known_end_chars[index])
+  #     if shift > 0
+  #       shifts[(65 + index).chr.to_sym] = shift
+  #     else
+  #       shift += @encoder.length
+  #       shifts[(65 + index).chr.to_sym] = shift
+  #     end
+  #   end
+  #   shifts
+  # end
 
 end

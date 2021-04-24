@@ -24,4 +24,12 @@ module FromFileable
     write_ending_text(end_file, encrypted_message[:encryption])
     encrypted_message
   end
+
+  def self.decrypt_from_file(start_file, end_file, key, date)
+    encrypted_message = read_starting_text(start_file)
+    enigma = Enigma.new
+    decrypted_message = enigma.decrypt(encrypted_message, key, date)
+    write_ending_text(end_file, decrypted_message[:decryption])
+    decrypted_message
+  end
 end

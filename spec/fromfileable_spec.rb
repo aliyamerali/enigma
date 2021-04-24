@@ -42,8 +42,9 @@ describe FromFileable do
     date = "240818"
 
     expected = {:decryption=>"Aliya Merali", :key=>"82648", :date=>"240818"}
+    #HOW TO STUB this so decryption return is predictable?
 
-    expect(FromFileable.decrypt_from_file(start_file, end_file)).to eq(expected)
+    expect(FromFileable.decrypt_from_file(start_file, end_file, key, date)).to eq(expected)
     expect(File.open(start_file, "r").read.chomp).to eq("test Test test")
     expect(File.open(end_file, "r").read).to eq(expected[:encryption])
   end

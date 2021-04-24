@@ -23,11 +23,7 @@ describe FromFileable do
     start_file = 'testing.txt'
     end_file = 'testing_end.txt'
     message = "test Test test"
-    expected = {
-                encryption: "mxghtltgmshtll",
-                key: "08304",
-                date: "240421"
-              }
+    expected = {encryption: "mxghtltgmshtll", key: "08304", date: "240421"}
 
     enigma = double("enigma")
     allow(enigma).to receive(:encrypt).with(message) do
@@ -39,22 +35,15 @@ describe FromFileable do
     expect(File.open(end_file, "r").read).to eq(expected[:encryption])
   end
 
-  it '#decrypt_from_file reads file, writes encryption to new file, returns encryption' do
+  it '#decrypt_from_file reads file, writes decryption to new file, returns decryption' do
     start_file = 'testing.txt'
     end_file = 'testing_end.txt'
-    message = "test Test test"
-    expected = {
-      encryption: "mxghtltgmshtll",
-      key: "08304",
-      date: "240421"
-    }
+    key = "82648"
+    date = "240818"
 
-    enigma = double("enigma")
-    allow(enigma).to receive(:encrypt).with(message) do
-      expected
-    end
+    expected = {:decryption=>"Aliya Merali", :key=>"82648", :date=>"240818"}
 
-    expect(FromFileable.encrypt_from_file(start_file, end_file)).to eq(expected)
+    expect(FromFileable.decrypt_from_file(start_file, end_file)).to eq(expected)
     expect(File.open(start_file, "r").read.chomp).to eq("test Test test")
     expect(File.open(end_file, "r").read).to eq(expected[:encryption])
   end

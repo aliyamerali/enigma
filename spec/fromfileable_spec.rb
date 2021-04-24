@@ -37,16 +37,22 @@ describe FromFileable do
   end
 
   it '#decrypt_from_file reads file, writes decryption to new file, returns decryption' do
-    start_file = 'testing.txt'
+    start_file = 'testing_start.txt'
     end_file = 'testing_end.txt'
     key = "82648"
     date = "240818"
+    expected = {decryption: "Decrypted File Stub.", key: "82648", date: "240818"}
 
-    expected = {:decryption=>"Aliya Merali", :key=>"82648", :date=>"240818"}
-    #HOW TO STUB this so decryption return is predictable?
+    enigma = double("enigma")
+    allow(Enigma).to receive(:new) do
+      enigma
+    end
+    allow(enigma).to receive(:decrypt) do
+      expected
+    end
 
     expect(FromFileable.decrypt_from_file(start_file, end_file, key, date)).to eq(expected)
-    expect(File.open(start_file, "r").read.chomp).to eq("test Test test")
-    expect(File.open(end_file, "r").read).to eq(expected[:encryption])
+    expect(File.open(start_file, "r").read.chomp).to eq("This tests the starting file.")
+    expect(File.open(end_file, "r").read).to eq(expected[:decryption])
   end
 end

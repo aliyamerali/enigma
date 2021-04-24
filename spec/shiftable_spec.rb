@@ -65,9 +65,9 @@ RSpec.describe Shiftable do
     it 'does not shift characters not in the @encoder set' do
       shift_value = 5
 
-      expect(enigma.fwd_shift(".", shift_value)).to eq(".")
-      expect(enigma.fwd_shift("!", shift_value)).to eq("!")
-      expect(enigma.fwd_shift("@", shift_value)).to eq("@")
+      expect(enigma.bkwd_shift(".", shift_value)).to eq(".")
+      expect(enigma.bkwd_shift("!", shift_value)).to eq("!")
+      expect(enigma.bkwd_shift("@", shift_value)).to eq("@")
       expect(enigma.bkwd_shift("Q", shift_value)).to eq("l")
     end
   end

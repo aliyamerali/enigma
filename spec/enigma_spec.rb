@@ -14,10 +14,10 @@ RSpec.describe Enigma do
   describe '#calculate_shifts and helper #get_offset, #date_check' do
     enigma = Enigma.new
 
-    it '#get_offset takes in a date string and returns an offset' do
-      date = "220421"
-      expect(enigma.get_offset(date)).to eq("7241")
-    end
+    # it '#get_offset takes in a date string and returns an offset' do
+    #   date = "220421"
+    #   expect(enigma.get_offset(date)).to eq("7241")
+    # end
 
     describe '#date_check' do
       enigma = Enigma.new
@@ -28,13 +28,13 @@ RSpec.describe Enigma do
       end
     end
 
-    it '#calculate_shifts takes in key and date strings to return shift hash' do
-      key = "90357"
-      date = "220421"
-      expected = {A: 97, B: 5, C: 39, D: 58}
-
-      expect(enigma.calculate_shifts(key, date)).to eq(expected)
-    end
+    # it '#calculate_shifts takes in key and date strings to return shift hash' do
+    #   key = "90357"
+    #   date = "220421"
+    #   expected = {A: 97, B: 5, C: 39, D: 58}
+    #
+    #   expect(enigma.calculate_shifts(key, date)).to eq(expected)
+    # end
   end
 
   describe '#fwd_shift method' do

@@ -34,6 +34,15 @@ RSpec.describe Shiftable do
       expect(enigma.fwd_shift("l", shift_value)).to eq("q")
       expect(enigma.fwd_shift(" ", shift_value)).to eq("e")
     end
+
+    it 'does not shift characters not in the @encoder set' do
+      shift_value = 5
+
+      expect(enigma.fwd_shift(".", shift_value)).to eq(".")
+      expect(enigma.fwd_shift("!", shift_value)).to eq("!")
+      expect(enigma.fwd_shift("@", shift_value)).to eq("@")
+      expect(enigma.fwd_shift(" ", shift_value)).to eq("e")
+    end
   end
 
   describe '#bkwd_shift method' do

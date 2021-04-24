@@ -75,7 +75,7 @@ class Enigma
 
   end
 
-  def bkwd_calculate_shifts(cyphertext, date)
+  def bkwd_calculate_shifts(cyphertext)
     cyphertext_end = cyphertext[-4..-1]
     known_end = " end".split("")
     unordered_shifts = []
@@ -88,9 +88,7 @@ class Enigma
         unordered_shifts << shift
       end
     end
-    # require 'pry'; binding.pry
-    # unordered_shifts = unordered_shifts.sort!
-    unordered_shifts
+    unordered_shifts.sort
   end
 
 end

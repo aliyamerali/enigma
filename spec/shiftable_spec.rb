@@ -75,7 +75,10 @@ RSpec.describe Shiftable do
   describe '#align_to_shift' do
     enigma = Enigma.new
     cyphertext = "vjqtbeaweqihssi"
-    expected = {cyphertext_final_four: "ssih", known_end: "end "}
+    expected = {
+                cyphertext_final_four: ["s", "s", "i", "h"],
+                known_end: ["e", "n", "d", " "]
+                }
 
     it 'rotates the last 4 chars of cyphertext to be in shift order' do
       expect(enigma.align_to_shift(cyphertext)).to eq(expected)

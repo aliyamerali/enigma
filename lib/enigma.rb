@@ -73,7 +73,15 @@ class Enigma
 
   def crack(cyphertext, date=Date.today)
     date = date_check(date)
-    # shifts = #CAN get to order by checking length of cyphertext, %4, id what last 4 are.
+    shifts = bkwd_calculate_shifts(cyphertext)
+    #SHIFTS TO KEY:
+      # subtract offset
+      # How to check first shift? 
+      # check tht first char of second shift matches second char of first
+      # if not, add 27 until true
+      # repeat for 3rd and 4th shift
+    # key = #HELPER TO CALCULATE KEY
+    # decrypt(cyphertext, key, date)
   end
 
   def bkwd_calculate_shifts(cyphertext)

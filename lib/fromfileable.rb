@@ -2,8 +2,12 @@ require 'pry'
 
 module FromFileable
 
-  def self.get_starting_text(file)
-    starting_file = File.open(file, "r").read.chomp
+  def self.read_starting_text(file)
+    start_file = File.open(file, "r")
+    message = start_file.read.chomp
+    start_file.close
+    message
   end
+
 
 end

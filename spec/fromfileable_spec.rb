@@ -11,7 +11,7 @@ describe FromFileable do
   end
 
   it '#write_ending_text writes new text to a file' do
-    file_name = 'testing.txt'
+    file_name = 'testing_end.txt'
     new_text = "test, Test, test."
     FromFileable.write_ending_text(file_name, new_text)
 
@@ -19,18 +19,19 @@ describe FromFileable do
     expect(File.open(file_name, "r").read).to eq(new_text)
   end
 
-  # it '#encrypt_from_file takes in a file and writes encrypted text to new file' do
-  #   start_file_name = 'testing.txt'
-  #   end_file_name = 'testing_end.txt'
-  #
-  #   expected_output = {
-  #                       encryption: "vjqtbeaweqihssi",
-  #                       key: "08304",
-  #                       date: "291018"
-  #                     }
-  #
-  #   expect(FromFileable(start_file_name, end_file_name)).to eq(expected_output)
-  #   expect()
-  # end
+  it '#encrypt_from_file reads file, writes encryption to new file, returns encryption' do
+    start_file = 'testing.txt'
+    end_file = 'testing_end.txt'
+
+    expected = {
+                encryption: "vjqtbeaweqihssi",
+                key: "08304",
+                date: "291018"
+              }
+
+    expect(FromFileable.encrypt_from_file(start_file, end_file)).to eq(expected)
+    expect(File.open(start_file, "r").read).to eq("test, Test, test.")
+    expect(File.open(end_file, "r").read).to eq(expected[:encryption])
+  end
 
 end

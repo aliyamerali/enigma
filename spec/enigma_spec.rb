@@ -105,12 +105,12 @@ RSpec.describe Enigma do
 
   describe '#bkwd_calculate_key returns a key based on a shift and date' do
     enigma = Enigma.new
-    shift = {A: 14, B: 86%27, C: 32%27, D:8}
+    shifts = {A: 14, B: 86%27, C: 32%27, D:8}
     date = "291018"
     expected = "08304"
 
     it 'returns key' do
-      expect(enigma.bkwd_calculate_key(shift, date)).to eq(expected)
+      expect(enigma.bkwd_calculate_key(shifts, date)).to eq(expected)
     end
   end
 

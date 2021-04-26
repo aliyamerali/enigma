@@ -61,8 +61,8 @@ module BkwdCalculatable
 
   def bkwd_calculate_key(cyphertext, date)
     min_keys = min_keys(cyphertext, date)
-    congruencies = congruent_key_vals(min_keys)
 
+    congruencies = congruent_key_vals(min_keys)
     possibilities = []
     values = congruencies.values
     values[0].each do |a_elem|

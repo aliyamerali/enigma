@@ -50,6 +50,13 @@ RSpec.describe BkwdCalculatable do
     expect(enigma.congruent_key_vals(min_keys)).to eq(expected)
   end
 
+  it '#all_possible_keys returns all possible key sets based on min_keys' do
+    min_keys = ["08", "02", "03", "04"]
+
+    expect(all_possible_keys(min_keys).class).to eq(Array)
+    expect(all_possible_keys(min_keys).length).to eq(256)
+  end
+
   describe '#bkwd_calculate_key' do
     it 'returns a key based on a shift and date' do
       shifts = {A: 14, B: 86%27, C: 32%27, D:8}

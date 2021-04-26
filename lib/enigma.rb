@@ -44,10 +44,10 @@ class Enigma
     {decryption: decrypted_message.join, key: key, date: date}
   end
 
-  def crack(cyphertext, date=Date.today)
+  def crack(ciphertext, date=Date.today)
     date = date_check(date)
-    key = bkwd_calculate_key(cyphertext, date)
-    decrypt(cyphertext, key, date)
+    key = bkwd_calculate_key(ciphertext, date)
+    decrypt(ciphertext, key, date)
   end
 
 end

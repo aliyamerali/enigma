@@ -7,47 +7,47 @@ RSpec.describe BkwdCalculatable do
   describe '#bkwd_calculate_key' do
     it 'returns a key based on a shift and date' do
       date = "291018"
-      cyphertext = "vjqtbeaweqihssi"
+      ciphertext = "vjqtbeaweqihssi"
       expected = "08304"
 
-      expect(enigma.bkwd_calculate_key(cyphertext, date)).to eq(expected)
+      expect(enigma.bkwd_calculate_key(ciphertext, date)).to eq(expected)
     end
 
     it 'returns a key without a date entered' do
-      cyphertext = "qqubqeyigfxmpjzh"
+      ciphertext = "qqubqeyigfxmpjzh"
       date = enigma.date_check(Date.today)
       expected_1 = "90357"
       expected_2 = "63084"
 
-      expect(enigma.bkwd_calculate_key(cyphertext, date)).to eq(expected_1).or eq(expected_2)
+      expect(enigma.bkwd_calculate_key(ciphertext, date)).to eq(expected_1).or eq(expected_2)
     end
 
     it 'returns string warning if no feasible key' do
-      cyphertext = "vjqtbeaweqihssi"
+      ciphertext = "vjqtbeaweqihssi"
       date = "270421"
-      expected = "No possible key for this cyphertext with today's date. Please enter another date."
+      expected = "No possible key for this ciphertext with today's date. Please enter another date."
 
-      expect(enigma.bkwd_calculate_key(cyphertext, date)).to eq(expected)
+      expect(enigma.bkwd_calculate_key(ciphertext, date)).to eq(expected)
     end
   end
 
-  it '#bkwd_calculate_shifts returns the shifts based on cyphertext and a date' do
+  it '#bkwd_calculate_shifts returns the shifts based on ciphertext and a date' do
     enigma = Enigma.new
-    cyphertext = "vjqtbeaweqihssi"
+    ciphertext = "vjqtbeaweqihssi"
     expected = {A: 14, B: 86%27, C: 32%27, D:8}
 
-    expect(enigma.bkwd_calculate_shifts(cyphertext)).to eq(expected)
+    expect(enigma.bkwd_calculate_shifts(ciphertext)).to eq(expected)
   end
 
-  it '#align_to_shift rotates the last 4 chars of cyphertext to be in shift order' do
+  it '#align_to_shift rotates the last 4 chars of ciphertext to be in shift order' do
     enigma = Enigma.new
-    cyphertext = "vjqtbeaweqihssi"
+    ciphertext = "vjqtbeaweqihssi"
     expected = {
-      cyphertext_end: ["s", "s", "i", "h"],
+      ciphertext_end: ["s", "s", "i", "h"],
       known_end: ["e", "n", "d", " "]
     }
 
-    expect(enigma.align_to_shift(cyphertext)).to eq(expected)
+    expect(enigma.align_to_shift(ciphertext)).to eq(expected)
   end
 
   it '#format_key returns two character string for keys passed as integers' do
@@ -58,11 +58,11 @@ RSpec.describe BkwdCalculatable do
   end
 
   it '#min_keys returns lowest key values possible with given date and shift' do
-    cyphertext = "vjqtbeaweqihssi"
+    ciphertext = "vjqtbeaweqihssi"
     date = "291018"
     expected = ["08", "02", "03", "04"]
 
-    expect(enigma.min_keys(cyphertext, date)).to eq(expected)
+    expect(enigma.min_keys(ciphertext, date)).to eq(expected)
   end
 
   it '#congruent_key_vals returns all possible values for each key' do

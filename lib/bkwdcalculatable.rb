@@ -1,23 +1,23 @@
 module BkwdCalculatable
 
-  def bkwd_calculate_key(cyphertext, date)
-    min_keys = min_keys(cyphertext, date)
+  def bkwd_calculate_key(ciphertext, date)
+    min_keys = min_keys(ciphertext, date)
     possible_keys = all_possible_keys(min_keys)
     final_key = possible_keys.find do |key|
       key[0][1] == key[1][0] && key[1][1] == key[2][0] && key[2][1] == key[3][0]
     end
     if final_key.nil?
-      "No possible key for this cyphertext with today's date. Please enter another date."
+      "No possible key for this ciphertext with today's date. Please enter another date."
     else
       final_key[0] + final_key[2] + final_key[3][1]
     end
   end
 
-  def bkwd_calculate_shifts(cyphertext)
-    cyphertext_end = align_to_shift(cyphertext)[:cyphertext_end]
-    known_end = align_to_shift(cyphertext)[:known_end]
+  def bkwd_calculate_shifts(ciphertext)
+    ciphertext_end = align_to_shift(ciphertext)[:ciphertext_end]
+    known_end = align_to_shift(ciphertext)[:known_end]
     shifts = {}
-    cyphertext_end.each_with_index do |character, index|
+    ciphertext_end.each_with_index do |character, index|
       shift = @encoder.index(character) - @encoder.index(known_end[index])
       if shift > 0
         shifts[(65 + index).chr.to_sym] = shift
@@ -29,12 +29,12 @@ module BkwdCalculatable
     shifts
   end
 
-  def align_to_shift(cyphertext)
-    cyphertext_end = cyphertext[-4..-1].split("")
+  def align_to_shift(ciphertext)
+    ciphertext_end = ciphertext[-4..-1].split("")
     known_end = " end".split("")
-    end_chars = {cyphertext_end: cyphertext_end, known_end: known_end}
+    end_chars = {ciphertext_end: ciphertext_end, known_end: known_end}
     end_chars.each do |key, end_char|
-      end_chars[key] = end_char.rotate!(4 - cyphertext.length % 4)
+      end_chars[key] = end_char.rotate!(4 - ciphertext.length % 4)
     end
   end
 
@@ -46,8 +46,8 @@ module BkwdCalculatable
     end
   end
 
-  def min_keys(cyphertext, date)
-    shifts = bkwd_calculate_shifts(cyphertext)
+  def min_keys(ciphertext, date)
+    shifts = bkwd_calculate_shifts(ciphertext)
     offset = get_offset(date)
     keys = []
     shifts.values.each_with_index do |shift, index|

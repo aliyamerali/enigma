@@ -25,7 +25,6 @@ RSpec.describe BkwdCalculatable do
 
   describe '#bkwd_calculate_key' do
     it 'returns a key based on a shift and date' do
-      shifts = {A: 14, B: 86%27, C: 32%27, D:8}
       date = "291018"
       cyphertext = "vjqtbeaweqihssi"
       expected = "08304"
@@ -40,6 +39,14 @@ RSpec.describe BkwdCalculatable do
       expected_2 = "63084"
 
       expect(enigma.bkwd_calculate_key(cyphertext, date)).to eq(expected_1).or eq(expected_2)
+    end
+
+    it 'returns string warning if no feasible key' do
+      cyphertext = "vjqtbeaweqihssi"
+      date = "270421"
+      expected = "No possible key for this cyphertext with today's date. Please enter another date."
+
+      expect(enigma.bkwd_calculate_key(cyphertext, date)).to eq(expected)
     end
   end
 

@@ -2,18 +2,19 @@ module BkwdCalculatable
 
   def align_to_shift(cyphertext)
     cyphertext_end = cyphertext[-4..-1].split("")
-    known_end_chars = " end".split("")
-    known_end_chars.rotate!(4 - cyphertext.length % 4)
-    cyphertext_end.rotate!(4 - cyphertext.length % 4)
-    {cyphertext_final_four: cyphertext_end, known_end: known_end_chars}
+    known_end = " end".split("")
+    end_chars = {cyphertext_end: cyphertext_end, known_end: known_end}
+    end_chars.each do |key, end_char|
+      end_chars[key] = end_char.rotate!(4 - cyphertext.length % 4)
+    end
   end
 
   def bkwd_calculate_shifts(cyphertext)
-    cyphertext_end = align_to_shift(cyphertext)[:cyphertext_final_four]
-    known_end_chars = align_to_shift(cyphertext)[:known_end]
+    cyphertext_end = align_to_shift(cyphertext)[:cyphertext_end]
+    known_end = align_to_shift(cyphertext)[:known_end]
     shifts = {}
     cyphertext_end.each_with_index do |character, index|
-      shift = @encoder.index(character) - @encoder.index(known_end_chars[index])
+      shift = @encoder.index(character) - @encoder.index(known_end[index])
       if shift > 0
         shifts[(65 + index).chr.to_sym] = shift
       else
@@ -24,8 +25,10 @@ module BkwdCalculatable
     shifts
   end
 
-  def bkwd_calculate_key(shifts, date)
+  def bkwd_calculate_key(cyphertext, date)
     offset = get_offset(date)
+    shifts = bkwd_calculate_shifts(cyphertext)
+
     keys = []
     shifts.values.each_with_index do |shift, index|
       key = shift - offset[index].to_i
@@ -36,6 +39,7 @@ module BkwdCalculatable
         keys << key
       end
     end
+
     congruencies = {}
     interval = @encoder.length
     max = 99 - interval
@@ -48,9 +52,8 @@ module BkwdCalculatable
       end
     end
 
-    values = congruencies.values
-
     possibilities = []
+    values = congruencies.values
     values[0].each do |a_elem|
       values[1].each do |b_elem|
         values[2].each do |c_elem|
@@ -60,11 +63,10 @@ module BkwdCalculatable
         end
       end
     end
-    # require 'pry'; binding.pry
+
     final_key = possibilities.find do |keys|
       keys[0][1] == keys[1][0] && keys[1][1] == keys[2][0] && keys[2][1] == keys[3][0]
     end
-    # require 'pry'; binding.pry
 
     if final_key.nil?
       "No possible key for this cyphertext with today's date. Please enter another date."

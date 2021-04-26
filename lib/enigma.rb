@@ -46,8 +46,7 @@ class Enigma
 
   def crack(cyphertext, date=Date.today)
     date = date_check(date)
-    shifts = bkwd_calculate_shifts(cyphertext)
-    key = bkwd_calculate_key(shifts, date)
+    key = bkwd_calculate_key(cyphertext, date)
     decrypt(cyphertext, key, date)
   end
 

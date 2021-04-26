@@ -160,26 +160,21 @@ RSpec.describe Enigma do
   describe 'BkwdCalculatable Module methods' do
     enigma = Enigma.new
 
-    it '#bkwd_calculate_shifts returns the shifts based on cyphertxt and date' do
+    it '#bkwd_calculate_key returns a key based on cyphertext and date' do
       cyphertext = "vjqtbeaweqihssi"
-      expected = {A: 14, B: 86%27, C: 32%27, D:8}
-
-      expect(enigma.bkwd_calculate_shifts(cyphertext)).to eq(expected)
-    end
-
-    it '#bkwd_calculate_key returns a key based on a shift and date' do
-      shifts = {A: 14, B: 86%27, C: 32%27, D:8}
       date = "291018"
       expected = "08304"
-      expect(enigma.bkwd_calculate_key(shifts, date)).to eq(expected)
+
+      expect(enigma.bkwd_calculate_key(cyphertext, date)).to eq(expected)
     end
 
     it '#bkwd_calculate_key returns a key without a date entered' do
-      shifts = enigma.bkwd_calculate_shifts("qqubqeyigfxmpjzh")#{A: 16, B: 5, C: 12, D:4}
-      date = "220421"
+      cyphertext = "qqubqeyigfxmpjzh"
+      date = enigma.date_check(Date.today)
       expected_1 = "90357"
       expected_2 = "63084"
-      expect(enigma.bkwd_calculate_key(shifts, date)).to eq(expected_1).or eq(expected_2)
+
+      expect(enigma.bkwd_calculate_key(cyphertext, date)).to eq(expected_1).or eq(expected_2)
     end
   end
 end

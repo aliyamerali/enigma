@@ -85,12 +85,16 @@ class Enigma
         end
       end
     end
-    keys = possibilities.find do |keys|
+    # require 'pry'; binding.pry
+    final_key = possibilities.find do |keys|
       keys[0][1] == keys[1][0] && keys[1][1] == keys[2][0] && keys[2][1] == keys[3][0]
     end
     # require 'pry'; binding.pry
 
-    keys = keys[0] + keys[2] + keys[3][1]
+    if final_key.nil?
+      "No possible key for this cyphertext with today's date. Please enter another date."
+    else
+      final_key[0] + final_key[2] + final_key[3][1]
+    end
   end
-
 end

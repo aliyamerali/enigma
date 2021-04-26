@@ -1,5 +1,18 @@
 module BkwdCalculatable
 
+  def bkwd_calculate_key(cyphertext, date)
+    min_keys = min_keys(cyphertext, date)
+    possible_keys = all_possible_keys(min_keys)
+    final_key = possible_keys.find do |key|
+      key[0][1] == key[1][0] && key[1][1] == key[2][0] && key[2][1] == key[3][0]
+    end
+    if final_key.nil?
+      "No possible key for this cyphertext with today's date. Please enter another date."
+    else
+      final_key[0] + final_key[2] + final_key[3][1]
+    end
+  end
+
   def bkwd_calculate_shifts(cyphertext)
     cyphertext_end = align_to_shift(cyphertext)[:cyphertext_end]
     known_end = align_to_shift(cyphertext)[:known_end]
@@ -25,19 +38,6 @@ module BkwdCalculatable
     end
   end
 
-  def bkwd_calculate_key(cyphertext, date)
-    min_keys = min_keys(cyphertext, date)
-    possible_keys = all_possible_keys(min_keys)
-    final_key = possible_keys.find do |key|
-      key[0][1] == key[1][0] && key[1][1] == key[2][0] && key[2][1] == key[3][0]
-    end
-    if final_key.nil?
-      "No possible key for this cyphertext with today's date. Please enter another date."
-    else
-      final_key[0] + final_key[2] + final_key[3][1]
-    end
-  end
-
   def format_key(key)
     if key.to_s.length == 2
       key.to_s
@@ -58,6 +58,8 @@ module BkwdCalculatable
   end
 
   def congruent_key_vals(min_keys)
+    interval = @encoder.length
+    max = 99 - interval
     congruencies = {}
     interval = @encoder.length
     max = 99 - interval
@@ -66,7 +68,7 @@ module BkwdCalculatable
       key_value = key.to_i
       while key_value < max
         key_value += interval
-        congruencies[index] << key_value.to_s
+        congruencies[index] << format_key(key_value)
       end
     end
     congruencies

@@ -1,4 +1,5 @@
 require './lib/fromfileable'
+require './lib/enigma'
 
 describe FromFileable do
 

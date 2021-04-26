@@ -16,11 +16,11 @@ RSpec.describe Enigma do
     expect(enigma.date_check(Date.new(1995,8,4))).to eq("040895")
   end
 
-  it '#generate_key generates a random 5-digit key as a string' do
+  it '#generate_random_key generates a random 5-digit key as a string' do
     enigma = Enigma.new
 
-    expect(enigma.generate_key.length).to eq(5)
-    expect(enigma.generate_key.class).to eq(String)
+    expect(enigma.generate_random_key.length).to eq(5)
+    expect(enigma.generate_random_key.class).to eq(String)
   end
 
   describe '#encrypt' do
@@ -48,7 +48,7 @@ RSpec.describe Enigma do
     end
 
     it 'uses random key if no key passed in AND default date of today' do
-      allow(enigma).to receive(:generate_key) do
+      allow(enigma).to receive(:generate_random_key) do
         "90357"
       end
       allow(Date).to receive(:today) do
@@ -100,6 +100,25 @@ RSpec.describe Enigma do
 
     it 'returns decoded text, date, and key when given text and date' do
       expect(enigma.crack(cyphertext, date)).to eq(expected)
+    end
+  end
+
+  describe '#bkwd_calculate_key returns a key based on a shift and date' do
+    enigma = Enigma.new
+
+    it 'returns key' do
+      shifts = {A: 14, B: 86%27, C: 32%27, D:8}
+      date = "291018"
+      expected = "08304"
+      expect(enigma.bkwd_calculate_key(shifts, date)).to eq(expected)
+    end
+
+    it 'returns key' do
+      shifts = enigma.bkwd_calculate_shifts("qqubqeyigfxmpjzh")#{A: 16, B: 5, C: 12, D:4}
+      date = "220421"
+      expected_1 = "90357"
+      expected_2 = "63084"
+      expect(enigma.bkwd_calculate_key(shifts, date)).to eq(expected_1).or eq(expected_2)
     end
   end
 

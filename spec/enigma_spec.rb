@@ -88,7 +88,7 @@ RSpec.describe Enigma do
 
   describe '#crack' do
     enigma = Enigma.new
-    cyphertext = "vjqtbeaweqihssi"
+    ciphertext = "vjqtbeaweqihssi"
     date = "291018"
 
     it 'returns decoded text, date, and key when given text and date' do
@@ -97,7 +97,7 @@ RSpec.describe Enigma do
         date: "291018",
         key: "08304"
       }
-      expect(enigma.crack(cyphertext, date)).to eq(expected)
+      expect(enigma.crack(ciphertext, date)).to eq(expected)
     end
 
     it 'uses today as a default date if no date entered' do
@@ -160,21 +160,21 @@ RSpec.describe Enigma do
   describe 'BkwdCalculatable Module methods' do
     enigma = Enigma.new
 
-    it '#bkwd_calculate_key returns a key based on cyphertext and date' do
-      cyphertext = "vjqtbeaweqihssi"
+    it '#bkwd_calculate_key returns a key based on ciphertext and date' do
+      ciphertext = "vjqtbeaweqihssi"
       date = "291018"
       expected = "08304"
 
-      expect(enigma.bkwd_calculate_key(cyphertext, date)).to eq(expected)
+      expect(enigma.bkwd_calculate_key(ciphertext, date)).to eq(expected)
     end
 
     it '#bkwd_calculate_key returns a key without a date entered' do
-      cyphertext = "qqubqeyigfxmpjzh"
+      ciphertext = "qqubqeyigfxmpjzh"
       date = enigma.date_check(Date.today)
       expected_1 = "90357"
       expected_2 = "63084"
 
-      expect(enigma.bkwd_calculate_key(cyphertext, date)).to eq(expected_1).or eq(expected_2)
+      expect(enigma.bkwd_calculate_key(ciphertext, date)).to eq(expected_1).or eq(expected_2)
     end
   end
 end

@@ -24,11 +24,12 @@ RSpec.describe BkwdCalculatable do
   end
 
   it '#min_keys returns lowest key values possible with given date and shift' do
-    shifts = {A: 14, B: 86, C: 32, D:8}
+    cyphertext = "vjqtbeaweqihssi"
+    # shifts = {A: 14, B: 86, C: 32, D:8}
     date = "291018"
     expected = ["08", "02", "03", "04"]
 
-    expect(enigma.min_keys(shifts, date)).to eq(expected)
+    expect(enigma.min_keys(cyphertext, date)).to eq(expected)
   end
 
   describe '#bkwd_calculate_key' do

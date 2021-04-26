@@ -25,10 +25,9 @@ module BkwdCalculatable
     shifts
   end
 
-  def bkwd_calculate_key(cyphertext, date)
-    offset = get_offset(date)
+  def min_keys(cyphertext, date)
     shifts = bkwd_calculate_shifts(cyphertext)
-
+    offset = get_offset(date)
     keys = []
     shifts.values.each_with_index do |shift, index|
       key = shift - offset[index].to_i
@@ -39,11 +38,16 @@ module BkwdCalculatable
         keys << key
       end
     end
+    keys
+  end
+
+  def bkwd_calculate_key(cyphertext, date)
+    min_keys = min_keys(cyphertext, date)
 
     congruencies = {}
     interval = @encoder.length
     max = 99 - interval
-    keys.each_with_index do |key, index|
+    min_keys.each_with_index do |key, index|
       congruencies[index] = [key]
       key_value = key.to_i
       while key_value < max
@@ -64,8 +68,8 @@ module BkwdCalculatable
       end
     end
 
-    final_key = possibilities.find do |keys|
-      keys[0][1] == keys[1][0] && keys[1][1] == keys[2][0] && keys[2][1] == keys[3][0]
+    final_key = possibilities.find do |min_keys|
+      min_keys[0][1] == min_keys[1][0] && min_keys[1][1] == min_keys[2][0] && min_keys[2][1] == min_keys[3][0]
     end
 
     if final_key.nil?

@@ -1,4 +1,3 @@
-require 'pry'
 require './lib/enigma'
 
 module FromFileable

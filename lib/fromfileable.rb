@@ -31,4 +31,12 @@ module FromFileable
     write_ending_text(end_file, decrypted_message[:decryption])
     decrypted_message
   end
+
+  def self.crack_from_file(start_file, end_file, date)
+    encrypted_message = read_starting_text(start_file)
+    enigma = Enigma.new
+    cracked_message = enigma.crack(encrypted_message, date)
+    write_ending_text(end_file, cracked_message[:decryption])
+    cracked_message
+  end
 end

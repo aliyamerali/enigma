@@ -56,4 +56,23 @@ describe FromFileable do
     expect(File.open(start_file, "r").read.chomp).to eq("This tests the starting file.")
     expect(File.open(end_file, "r").read).to eq(expected[:decryption])
   end
+
+  it '#crack_from_file reads file, cracks code and writes decryption to new file' do
+    start_file = 'testing_start.txt'
+    end_file = 'testing_end.txt'
+    date = "240818"
+    expected = {decryption: "Decrypted File Stub.", key: "82648", date: "240818"}
+
+    enigma = double("enigma")
+    allow(Enigma).to receive(:new) do
+      enigma
+    end
+    allow(enigma).to receive(:crack) do
+      expected
+    end
+
+    expect(FromFileable.crack_from_file(start_file, end_file, date)).to eq(expected)
+    expect(File.open(start_file, "r").read.chomp).to eq("This tests the starting file.")
+    expect(File.open(end_file, "r").read).to eq(expected[:decryption])
+  end
 end

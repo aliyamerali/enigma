@@ -68,10 +68,9 @@ class Enigma
         keys << key
       end
     end
-
+    # require 'pry'; binding.pry
     keys.each_with_index.map do |key, index|
-      # require 'pry'; binding.pry
-      if index != keys.length
+      if index < (keys.length - 1)
         if key[1] != keys[index+1][0]
           if key.to_i > 72 || keys[index+1].to_i > 72
             keys[index] = (key.to_i + 27).to_s if keys[index+1].to_i > 72
@@ -89,54 +88,8 @@ class Enigma
           end
         end
       end
-
-      keys
     end
-    # lock_status = {
-    #               keys[0] => false,
-    #               keys[1] => false,
-    #               keys[2] => false,
-    #               keys[3] => false
-    #               }
-    #
-    # until keys[0][1] == keys[1][0] && keys[1][1] == keys[2][0] && keys[2][1] == keys[3][0] || !lock_status.values.include?(false)
-    #   if keys[0][1] == keys[1][0] && keys[1][1] == keys[2][0] && keys[2][1] != keys[3][0]
-    #     if keys[3].to_i + @encoder.length < 100
-    #       keys[3] = (keys[3].to_i + @encoder.length).to_s
-    #     else
-    #       lock_status[keys[3]] == true
-    #     end
-    #   elsif keys[0][1] == keys[1][0] && keys[1][1] != keys[2][0] && keys[2][1] != keys[3][0]
-    #     if keys[2].to_i + @encoder.length < 100
-    #       keys[2] = (keys[2].to_i + @encoder.length).to_s
-    #     else
-    #       lock_status[keys[2]] == true
-    #     end
-    #   elsif keys[0][1] != keys[1][0] && keys[1][1] != keys[2][0] && keys[2][1] == keys[3][0]
-    #     if keys[1].to_i + @encoder.length < 100
-    #       keys[1] = (keys[1].to_i + @encoder.length).to_s
-    #     else
-    #       lock_status[keys[1]] == true
-    #     end
-    #   elsif keys[0][1] != keys[1][0] && keys[1][1] == keys[2][0] && keys[2][1] == keys[3][0]
-    #     if keys[0].to_i + @encoder.length < 100
-    #       keys[0] = (keys[0].to_i + @encoder.length).to_s
-    #     else
-    #       lock_status[keys[0]] == true
-    #     end
-    #   else
-    #     puts "end of the line"
-    #     random_index = rand(0..3)
-    #     if keys[random_index].to_i + @encoder.length < 100
-    #       keys[random_index] = (keys[random_index].to_i + @encoder.length).to_s
-    #     else
-    #       lock_status[keys[random_index]] == true
-    #     end
-    #   end
-    # end
-
-    # keys = keys[0] + keys[2] + keys[3][1]
-
+    keys = keys[0] + keys[2] + keys[3][1]
   end
-
+  
 end

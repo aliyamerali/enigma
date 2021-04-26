@@ -25,17 +25,21 @@ module BkwdCalculatable
     shifts
   end
 
+  def format_key(key)
+    if key.to_s.length == 2
+      key.to_s
+    else
+      "0" + key.to_s
+    end
+  end
+
   def min_keys(cyphertext, date)
     shifts = bkwd_calculate_shifts(cyphertext)
     offset = get_offset(date)
     keys = []
     shifts.values.each_with_index do |shift, index|
       key = shift - offset[index].to_i
-      if key.to_s.length == 2
-        keys << key.to_s
-      else
-        keys << "0" + key.to_s
-      end
+      keys << format_key(key)
     end
     keys
   end

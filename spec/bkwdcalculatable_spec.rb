@@ -27,7 +27,7 @@ RSpec.describe BkwdCalculatable do
     key_int = 9
     key_formatted = "09"
 
-    expect(format_key(key_int)).to eq(key_formatted)
+    expect(enigma.format_key(key_int)).to eq(key_formatted)
   end
 
   it '#min_keys returns lowest key values possible with given date and shift' do

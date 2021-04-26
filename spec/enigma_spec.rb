@@ -88,8 +88,6 @@ RSpec.describe Enigma do
 
   describe '#crack' do
     enigma = Enigma.new
-    #takes in encoded text and optional date (else date = today)
-    #returns decoded text, date, and key used to decode
     cyphertext = "vjqtbeaweqihssi"
     date = "291018"
     expected = {
@@ -100,6 +98,11 @@ RSpec.describe Enigma do
 
     it 'returns decoded text, date, and key when given text and date' do
       expect(enigma.crack(cyphertext, date)).to eq(expected)
+    end
+
+    it 'uses today as a default date if no date entered' do
+      expected = enigma.date_check(Date.today)
+      expect(enigma.crack("vjqtbeaweqihssi")[:date]).to eq(expected)
     end
   end
 

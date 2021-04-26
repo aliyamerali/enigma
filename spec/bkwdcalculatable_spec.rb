@@ -42,12 +42,12 @@ RSpec.describe BkwdCalculatable do
     min_keys = ["08", "02", "03", "04"]
     expected = {
                 0 => ["08", "35", "62", "89"],
-                1 => ["28", "55", "82"],
-                2 => ["29", "56", "83"],
-                3 => ["03", "30", "57", "84"]
+                1 => ["02", "29", "56", "83"],
+                2 => ["03", "30", "57", "84"],
+                3 => ["04", "31", "58", "85"]
                 }
 
-    expect(enigma.congruent_key_vals(min_keys)).to eq()
+    expect(enigma.congruent_key_vals(min_keys)).to eq(expected)
   end
 
   describe '#bkwd_calculate_key' do

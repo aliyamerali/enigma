@@ -44,9 +44,7 @@ module BkwdCalculatable
     keys
   end
 
-  def bkwd_calculate_key(cyphertext, date)
-    min_keys = min_keys(cyphertext, date)
-
+  def congruent_key_vals(min_keys)
     congruencies = {}
     interval = @encoder.length
     max = 99 - interval
@@ -58,6 +56,12 @@ module BkwdCalculatable
         congruencies[index] << key_value.to_s
       end
     end
+    congruencies
+  end
+
+  def bkwd_calculate_key(cyphertext, date)
+    min_keys = min_keys(cyphertext, date)
+    congruencies = congruent_key_vals(min_keys)
 
     possibilities = []
     values = congruencies.values

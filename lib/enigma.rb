@@ -1,8 +1,10 @@
 require 'Date'
 require './lib/shiftable'
+require './lib/bkwdcalculatable'
 
 class Enigma
   include Shiftable
+  include BkwdCalculatable
 
   def initialize
     @encoder = ("a".."z").to_a << " "

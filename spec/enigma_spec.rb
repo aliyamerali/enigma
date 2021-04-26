@@ -173,9 +173,12 @@ RSpec.describe Enigma do
         expect(enigma.bkwd_shift("e", shift_value)).to eq(" ")
       end
     end
+  end
+
+  describe 'BkwdCalculatable Module methods' do
+    enigma = Enigma.new
 
     it '#bkwd_calculate_shifts returns the shifts based on cyphertxt and date' do
-      enigma = Enigma.new
       cyphertext = "vjqtbeaweqihssi"
       expected = {A: 14, B: 86%27, C: 32%27, D:8}
 

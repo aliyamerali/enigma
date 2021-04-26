@@ -23,9 +23,15 @@ RSpec.describe BkwdCalculatable do
     expect(enigma.bkwd_calculate_shifts(cyphertext)).to eq(expected)
   end
 
+  it '#format_key returns two character string for keys passed as integers' do
+    key_int = 9
+    key_formatted = "09"
+
+    expect(format_key(key_int)).to eq(key_formatted)
+  end
+
   it '#min_keys returns lowest key values possible with given date and shift' do
     cyphertext = "vjqtbeaweqihssi"
-    # shifts = {A: 14, B: 86, C: 32, D:8}
     date = "291018"
     expected = ["08", "02", "03", "04"]
 

@@ -34,8 +34,7 @@ module BkwdCalculatable
       if key.to_s.length == 2
         keys << key.to_s
       else
-        key = "0" + key.to_s
-        keys << key
+        keys << "0" + key.to_s
       end
     end
     keys

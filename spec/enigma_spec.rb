@@ -160,12 +160,12 @@ RSpec.describe Enigma do
   describe 'BkwdCalculatable Module methods' do
     enigma = Enigma.new
 
-    # it '#bkwd_calculate_shifts returns the shifts based on cyphertxt and date' do
-    #   cyphertext = "vjqtbeaweqihssi"
-    #   expected = {A: 14, B: 86%27, C: 32%27, D:8}
-    #
-    #   expect(enigma.bkwd_calculate_shifts(cyphertext)).to eq(expected)
-    # end
+    it '#bkwd_calculate_shifts returns the shifts based on cyphertxt and date' do
+      cyphertext = "vjqtbeaweqihssi"
+      expected = {A: 14, B: 86%27, C: 32%27, D:8}
+
+      expect(enigma.bkwd_calculate_shifts(cyphertext)).to eq(expected)
+    end
 
     it '#bkwd_calculate_key returns a key based on a shift and date' do
       shifts = {A: 14, B: 86%27, C: 32%27, D:8}

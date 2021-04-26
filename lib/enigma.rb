@@ -45,17 +45,10 @@ class Enigma
   def crack(cyphertext, date=Date.today)
     date = date_check(date)
     shifts = bkwd_calculate_shifts(cyphertext)
-    #SHIFTS TO KEY:
-      # subtract offset
-      # How to check first shift?
-      # check tht first char of second shift matches second char of first
-      # if not, add 27 until true
-      # repeat for 3rd and 4th shift
-    # key = #HELPER TO CALCULATE KEY
+
     # decrypt(cyphertext, key, date)
   end
 
-  # require 'pry'; binding.pry
   def bkwd_calculate_key(shifts, date)
     offset = get_offset(date)
     keys = []
@@ -68,28 +61,37 @@ class Enigma
         keys << key
       end
     end
-    # require 'pry'; binding.pry
-    keys.each_with_index.map do |key, index|
-      if index < (keys.length - 1)
-        if key[1] != keys[index+1][0]
-          if key.to_i > 72 || keys[index+1].to_i > 72
-            keys[index] = (key.to_i + 27).to_s if keys[index+1].to_i > 72
-            keys[index+1] = (keys[index+1].to_i + 27).to_s if key.to_i > 72
-          elsif index != 0
-            if key[0] == keys[index-1][1] && keys[index+1][1] != keys[index+2][0]
-              keys[index+1] = (keys[index+1].to_i + 27).to_s
-            elsif key[0] != keys[index-1][1] && keys[index+1][1] == keys[index+2][0]
-              keys[index] = (key.to_i + 27).to_s
-            elsif key[0] != keys[index-1][1] && keys[index+1][1] != keys[index+2][0]
-              keys[index+1] = (keys[index+1].to_i + 27).to_s
-            end
-          else
-            keys[index+1] = (keys[index+1].to_i + 27).to_s
+    congruencies = {}
+    interval = @encoder.length
+    max = 99 - interval
+    keys.each_with_index do |key, index|
+      congruencies[index] = [key]
+      key_value = key.to_i
+      while key_value < max
+        key_value += interval
+        congruencies[index] << key_value.to_s
+      end
+    end
+
+    values = congruencies.values
+
+    possibilities = []
+    values[0].each do |a_elem|
+      values[1].each do |b_elem|
+        values[2].each do |c_elem|
+          values[3].each do |d_elem|
+            possibilities << [a_elem, b_elem, c_elem, d_elem]
           end
         end
       end
     end
+    keys = possibilities.find do |keys|
+      keys[0][1] == keys[1][0] && keys[1][1] == keys[2][0] && keys[2][1] == keys[3][0]
+    end
+    # require 'pry'; binding.pry
+
+
     keys = keys[0] + keys[2] + keys[3][1]
   end
-  
+
 end

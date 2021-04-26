@@ -53,8 +53,8 @@ RSpec.describe BkwdCalculatable do
   it '#all_possible_keys returns all possible key sets based on min_keys' do
     min_keys = ["08", "02", "03", "04"]
 
-    expect(all_possible_keys(min_keys).class).to eq(Array)
-    expect(all_possible_keys(min_keys).length).to eq(256)
+    expect(enigma.all_possible_keys(min_keys).class).to eq(Array)
+    expect(enigma.all_possible_keys(min_keys).length).to eq(256)
   end
 
   describe '#bkwd_calculate_key' do

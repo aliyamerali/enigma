@@ -59,21 +59,25 @@ module BkwdCalculatable
     congruencies
   end
 
-  def bkwd_calculate_key(cyphertext, date)
-    min_keys = min_keys(cyphertext, date)
-
+  def all_possible_keys(min_keys)
     congruencies = congruent_key_vals(min_keys)
     possibilities = []
     values = congruencies.values
-    values[0].each do |a_elem|
-      values[1].each do |b_elem|
-        values[2].each do |c_elem|
-          values[3].each do |d_elem|
-            possibilities << [a_elem, b_elem, c_elem, d_elem]
+    values[0].each do |first_key|
+      values[1].each do |second_key|
+        values[2].each do |third_key|
+          values[3].each do |fourth_key|
+            possibilities << [first_key, second_key, third_key, fourth_key]
           end
         end
       end
     end
+    possibilities
+  end
+
+  def bkwd_calculate_key(cyphertext, date)
+    min_keys = min_keys(cyphertext, date)
+    possibilities = all_possible_keys(min_keys)
 
     final_key = possibilities.find do |min_keys|
       min_keys[0][1] == min_keys[1][0] && min_keys[1][1] == min_keys[2][0] && min_keys[2][1] == min_keys[3][0]

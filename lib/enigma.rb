@@ -45,8 +45,8 @@ class Enigma
   def crack(cyphertext, date=Date.today)
     date = date_check(date)
     shifts = bkwd_calculate_shifts(cyphertext)
-
-    # decrypt(cyphertext, key, date)
+    key = bkwd_calculate_key(shifts, date)
+    decrypt(cyphertext, key, date)
   end
 
   def bkwd_calculate_key(shifts, date)
@@ -89,7 +89,6 @@ class Enigma
       keys[0][1] == keys[1][0] && keys[1][1] == keys[2][0] && keys[2][1] == keys[3][0]
     end
     # require 'pry'; binding.pry
-
 
     keys = keys[0] + keys[2] + keys[3][1]
   end

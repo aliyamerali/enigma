@@ -86,7 +86,7 @@ RSpec.describe Enigma do
     end
   end
 
-  xdescribe '#crack' do
+  describe '#crack' do
     enigma = Enigma.new
     #takes in encoded text and optional date (else date = today)
     #returns decoded text, date, and key used to decode

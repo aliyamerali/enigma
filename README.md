@@ -7,3 +7,15 @@ Timeframe: 4 days
 Contributor: 
 - Aliya Merali  
    [Github](https://github.com/aliyamerali) | [LinkedIn](https://www.linkedin.com/in/aliyamerali/)
+
+## Functionality
+
+### Encryption
+![encrypt_gif](https://user-images.githubusercontent.com/5446926/126876069-5e523b89-063e-425d-a5d2-1f140335a07c.gif)
+
+### Decryption 
+![decrypt_gif](https://user-images.githubusercontent.com/5446926/126876116-6d3724ad-88bc-446c-bdad-f1261af213f8.gif)
+
+### Cracking the Code
+![crack_gif](https://user-images.githubusercontent.com/5446926/126876164-2daf0009-e0bd-4c30-bc2e-c07ad3896215.gif)
+
